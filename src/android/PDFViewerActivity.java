@@ -1,6 +1,5 @@
 package com.ingensnetworks.plugin;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -8,12 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Window;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 
-public class PDFViewerActivity extends Activity {
+public class PDFViewerActivity extends AppCompatActivity {
 
   private String cancel = "Cancel";
 
@@ -28,9 +34,13 @@ public class PDFViewerActivity extends Activity {
     String ok = intent.getStringExtra("ok");
     Integer showButtons = intent.getIntExtra("showButtons", 0);
 
-    ActionBar actionbar = getActionBar();
-    actionbar.setDisplayShowHomeEnabled(false);
-    actionbar.setTitle("");
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.setDisplayHomeAsUpEnabled(false);
+    actionBar.setTitle("");
+
+    ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#515151"));
+    actionBar.setBackgroundDrawable(colorDrawable);
+    getWindow().setStatusBarColor(Color.parseColor("#000000"));
 
     PDFView pdfView = (PDFView)findViewById(getResources().getIdentifier("pdfView", "id", getPackageName()));
     File file = new File(name);
